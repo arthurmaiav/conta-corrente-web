@@ -77,16 +77,24 @@ export const AnimationContainer = styled.div`
 
 export const Button = styled.button`
   background: #E02B57;
+  text-transform: uppercase;
+  letter-spacing: 0.03125rem;
+  border-radius: 100px;
   height: 56px;
-  border-radius: 10px;
+  min-width: 160px;
+  min-height: 69px;
+  height: 69px;
+  line-height: 69px;
   border: 0;
   padding: 0 16px;
   color: #fff;
   width: 100%;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: 16px;
   transition: background-color 0.2s;
   &:hover {
     background: ${shade(0.2, '#f1587d')};
+    transform: scale(1.1);
+    transition: 0.2s;
   }
 `;
