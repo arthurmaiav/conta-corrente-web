@@ -1,9 +1,25 @@
 import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
 
+export const Header = styled.header`
+  width: 100%;
+  padding: 32px;
+  background: #E02B57;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+`;
+
+export const HeaderContent = styled.div`
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  align-items: center;
+`;
 
 export const Container = styled.div`
-  height: 100vh;
+  height: 15rem;
   display: flex;
   flex: 1;
   align-items: stretch;
@@ -17,6 +33,16 @@ export const Content = styled.div`
   width: 100%;
   max-width: 700px;
   }
+`;
+
+export const BalanceContainer = styled.div`
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+  height: '100vh'
+}
 `;
 
 const appearFromLeft = keyframes`
@@ -90,11 +116,41 @@ export const Button = styled.button`
   color: #fff;
   width: 100%;
   font-weight: 600;
-  margin-top: 16px;
+  margin-top: 8px;
   transition: background-color 0.2s;
   &:hover {
     background: ${shade(0.2, '#f1587d')};
     transform: scale(1.1);
     transition: 0.2s;
   }
+`;
+
+export const Input = styled.input`
+    flex: 1;
+    border: 0;
+    background: #232129;
+    border-radius: 100px;
+    height: 56px;
+    min-width: 160px;
+    min-height: 69px;
+    height: 69px;
+    padding: 16px;
+    padding-left: 30px;
+    width: 100%;
+    border: 2px solid #232129;
+    color: #666360;
+    display: flex;
+    align-items: center;
+    &::placeholder {
+      color: #666360;
+    }
+`;
+
+export const Span = styled.span`
+font-size: 20px;
+margin-left: 24px;
+color: #fff;
+font-weight: bold;
+display: inline-block;
+font-family: 'Helvetica';
 `;
