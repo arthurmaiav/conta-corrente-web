@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
-import { AnimationContainer, Button, BalanceContainer, Container, Content, Header, HeaderContent, Input, Span } from './styles';
+import { AnimationContainer, Button, BalanceContainer, BalanceText, Container, Content, Header, HeaderContent, Input, Span, TransactionsContainer, TransactionText } from './styles';
 
 const Account: React.FC = () => {
-
+    const [balance, setBalance] = useState('0');
     const [withdrawal, setWithdrawal] = useState('');
     const [deposit, setDeposit] = useState('');
     const [payment, setPayment] = useState('');
 
-    async function handleWithdrawal(data: any) {
+    async function handleTransaction(data: any) {
         data.preventDefault();
         console.log()
     }
@@ -25,16 +25,18 @@ const Account: React.FC = () => {
 
         <Container>
             <BalanceContainer>
-                <h1>10000</h1>
+                <BalanceText>{balance},00</BalanceText>
             </BalanceContainer>
         </Container>
 
-        <Container>
+        <TransactionsContainer>
             <Content>
                 <AnimationContainer>
-                    <form onSubmit={handleWithdrawal}>
-                    <h1>Sacar: R${withdrawal || 0},00</h1>
+                    <form onSubmit={handleTransaction}>
+                    <h1>Saque</h1>
+                    <TransactionText>Sacar: R${withdrawal || 0},00</TransactionText>
                     <Input
+                        type="number" 
                         placeholder="R$ 0,00" 
                         value= {withdrawal}
                         onChange={e => setWithdrawal(e.target.value)}
@@ -46,9 +48,11 @@ const Account: React.FC = () => {
             </Content>
             <Content>
                 <AnimationContainer>
-                <form onSubmit={handleWithdrawal}>
+                <form onSubmit={handleTransaction}>
                     <h1>Depósito</h1>
+                    <TransactionText>Depositar: R${deposit || 0},00</TransactionText>
                     <Input
+                        type="number" 
                         placeholder="R$ 0,00" 
                         value= {deposit}
                         onChange={e => setDeposit(e.target.value)}
@@ -59,24 +63,27 @@ const Account: React.FC = () => {
             </Content>
             <Content>
                 <AnimationContainer>
-                <form onSubmit={handleWithdrawal}>
+                <form onSubmit={handleTransaction}>
                     <h1>Pagamento</h1>
+                    <TransactionText>Pagar: R${payment || 0},00</TransactionText>
                     <Input
+                        type="number" 
                         placeholder="R$ 0,00" 
                         value= {payment}
                         onChange={e => setPayment(e.target.value)}
                     />   
                     <Button type="submit">Pagamento</Button>
-                    </form>
+                </form>
                 </AnimationContainer>
             </Content>
             <Content>
                 <AnimationContainer>
-                    <h1  style={{ paddingBottom: 55}}>Extrato</h1>  
+                    <h1 style={{ paddingBottom: 30}}>Extrato</h1>  
+                    <TransactionText style={{ paddingBottom: 55}}>Gerar extrato</TransactionText>
                     <Button type="submit">Extrato</Button>
                 </AnimationContainer>
             </Content>
-        </Container>
+        </TransactionsContainer>
         </>
         );
     };
