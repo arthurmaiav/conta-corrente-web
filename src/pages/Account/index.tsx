@@ -11,6 +11,7 @@ const Account: React.FC = () => {
     const [withdrawal, setWithdrawal] = useState('0');
     const [deposit, setDeposit] = useState('0');
     const [payment, setPayment] = useState('0');
+    const [transactions, setTransactions] = useState<any[]>([]);
 
     useEffect(() => {
         api.get(`contaCorrente/${account}`).then(response => {
@@ -43,6 +44,16 @@ const Account: React.FC = () => {
             })
         }
     }
+
+    async function handleStatement(data: any) {
+        data.preventDefault();
+
+        await api.get(`extrato/${account}`).then(response => {
+            console.log(response.data)
+            setTransactions(response.data);
+        })
+    }
+    
 
     return (
         <>
@@ -120,10 +131,20 @@ const Account: React.FC = () => {
                 <AnimationContainer>
                     <h1 style={{ paddingBottom: 30}}>Extrato</h1>  
                     <TransactionText style={{ paddingBottom: 55}}>Gerar extrato</TransactionText>
-                    <Button type="submit">Extrato</Button>
+                    <Button type="submit" onClick={handleStatement}>Extrato</Button>
                 </AnimationContainer>
             </Content>
         </TransactionsContainer>
+
+        <ul>
+            {transactions.map(transactions => (
+                <li key={transactions.id}>
+                    <p>{transactions.transactionType}</p>
+                    <p>{transactions.value}</p>
+                </li>
+                ))}
+        </ul>
+
         </>
         );
     };
