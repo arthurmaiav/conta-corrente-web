@@ -22,9 +22,9 @@ const Account: React.FC = () => {
     const account = 123456780;
 
     const [balance, setBalance] = useState('0');
-    const [withdrawal, setWithdrawal] = useState('0');
-    const [deposit, setDeposit] = useState('0');
-    const [payment, setPayment] = useState('0');
+    const [withdrawal, setWithdrawal] = useState('');
+    const [deposit, setDeposit] = useState('');
+    const [payment, setPayment] = useState('');
     const [transactions, setTransactions] = useState<any[]>([]);
 
     useEffect(() => {
@@ -45,19 +45,16 @@ const Account: React.FC = () => {
             request.value = Number(withdrawal);
             await api.post('sacar', request).then(response => {
                 setBalance(String(Number(balance) - request.value))
-                handleStatement(data);
             })
         } else if (data.target.elements.deposit) {
             request.value = Number(deposit);
             await api.post('depositar', request).then(response => {
                 setBalance(String(Number(balance) + request.value))
-                handleStatement(data);
             })
         } else if (data.target.elements.payment) {
             request.value = Number(payment);
             await api.post('pagar', request).then(response => {
                 setBalance(String(Number(balance) - request.value))
-                handleStatement(data);
             })
         }
     }
@@ -66,7 +63,6 @@ const Account: React.FC = () => {
         data.preventDefault();
 
         await api.get(`extrato/${account}`).then(response => {
-            console.log(response.data)
             setTransactions(response.data);
         })
     }
@@ -99,6 +95,7 @@ const Account: React.FC = () => {
                         type="number" 
                         id="withdrawal"
                         placeholder="R$ 0,00" 
+                        min="0"
                         value= {withdrawal}
                         onChange={e => setWithdrawal(e.target.value)}
                     />                    
@@ -117,7 +114,8 @@ const Account: React.FC = () => {
                     <Input
                         id="deposit"
                         type="number" 
-                        placeholder="R$ 0,00" 
+                        placeholder="R$ 0,00"
+                        min="0"
                         value= {deposit}
                         onChange={e => setDeposit(e.target.value)}
                     />   
@@ -136,6 +134,7 @@ const Account: React.FC = () => {
                         id="payment"
                         type="number" 
                         placeholder="R$ 0,00" 
+                        min="0"
                         value= {payment}
                         onChange={e => setPayment(e.target.value)}
                     />
@@ -154,7 +153,6 @@ const Account: React.FC = () => {
         </TransactionsContainer>
 
         <List>
-
         <ListItem>
             <TransactionText style={{ marginLeft: `10%`}}> <h3>Tipo</h3> </TransactionText>
             <TransactionText style={{ marginLeft: `30%`}}><h3>Valor</h3></TransactionText>
