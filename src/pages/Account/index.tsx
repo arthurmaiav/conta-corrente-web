@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
+
+import api from '../../services/api';
 
 import { AnimationContainer, Button, BalanceContainer, BalanceText, Container, Content, Header, HeaderContent, Input, Span, TransactionsContainer, TransactionText } from './styles';
 
@@ -7,6 +9,12 @@ const Account: React.FC = () => {
     const [withdrawal, setWithdrawal] = useState('');
     const [deposit, setDeposit] = useState('');
     const [payment, setPayment] = useState('');
+
+    useEffect(() => {
+        api.get(`contaCorrente/${777}`).then(response => {
+            setBalance(response.data.balance);
+        })
+    });
 
     async function handleTransaction(data: any) {
         data.preventDefault();
