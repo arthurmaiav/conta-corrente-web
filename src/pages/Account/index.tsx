@@ -2,7 +2,21 @@ import React, { useState, useEffect  } from 'react';
 
 import api from '../../services/api';
 
-import { AnimationContainer, Button, BalanceContainer, BalanceText, Container, Content, Header, HeaderContent, Input, Span, TransactionsContainer, TransactionText } from './styles';
+import { AnimationContainer,
+    Button,
+    BalanceContainer,
+    BalanceText,
+    Container,
+    Content,
+    Header,
+    HeaderContent,
+    List,
+    ListItem,
+    Input,
+    Span,
+    TransactionsContainer,
+    TransactionText
+    } from './styles';
 
 const Account: React.FC = () => {
     const account = 123456780;
@@ -31,16 +45,19 @@ const Account: React.FC = () => {
             request.value = Number(withdrawal);
             await api.post('sacar', request).then(response => {
                 setBalance(String(Number(balance) - request.value))
+                handleStatement(data);
             })
         } else if (data.target.elements.deposit) {
             request.value = Number(deposit);
             await api.post('depositar', request).then(response => {
                 setBalance(String(Number(balance) + request.value))
+                handleStatement(data);
             })
         } else if (data.target.elements.payment) {
             request.value = Number(payment);
             await api.post('pagar', request).then(response => {
                 setBalance(String(Number(balance) - request.value))
+                handleStatement(data);
             })
         }
     }
@@ -136,14 +153,22 @@ const Account: React.FC = () => {
             </Content>
         </TransactionsContainer>
 
-        <ul>
+        <List>
+
+        <ListItem>
+            <TransactionText style={{ marginLeft: `10%`}}> <h3>Tipo</h3> </TransactionText>
+            <TransactionText style={{ marginLeft: `30%`}}><h3>Valor</h3></TransactionText>
+            <TransactionText style={{ marginLeft: `37%`}}><h3>Data</h3></TransactionText>
+        </ListItem>
+
             {transactions.map(transactions => (
-                <li key={transactions.id}>
-                    <p>{transactions.transactionType}</p>
-                    <p>{transactions.value}</p>
-                </li>
+                <ListItem key={transactions.id}>
+                    <TransactionText style={{ marginLeft: `10%`}}>{transactions.transactionType}</TransactionText>
+                    <TransactionText style={{ marginLeft: `30%`}}>R${transactions.value},00</TransactionText>
+                    <TransactionText style={{ marginLeft: `30%`}}>{transactions.createdAt}</TransactionText>
+                </ListItem>
                 ))}
-        </ul>
+        </List>
 
         </>
         );

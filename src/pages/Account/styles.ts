@@ -86,6 +86,17 @@ const appearFromLeft = keyframes`
   }
 `;
 
+const appearFromTop = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 export const AnimationContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -177,10 +188,39 @@ export const Input = styled.input`
 `;
 
 export const Span = styled.span`
-font-size: 20px;
-margin-left: 24px;
-color: #fff;
-font-weight: bold;
-display: inline-block;
+  font-size: 20px;
+  margin-left: 24px;
+  color: #fff;
+  font-weight: bold;
+  display: inline-block;
+  font-family: 'Helvetica';
+`;
+
+export const List = styled.ul`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 1rem;
+  margin-top: 10rem;
+  width: 100%;
+`;
+
+export const ListItem = styled.li`
+  display: flex;
+  width: 80%;
+  border-radius: 100px;
+  background-color: #9599a6;
+  padding: 1rem;
+  margin: 0.5rem;
+  animation: ${appearFromTop} 1s;
+  transition: color 0.2s;
+`;
+
+export const StatementText = styled.h3`
 font-family: 'Helvetica';
+font-weight: 600;
+font-size: 1rem;
+justify-content: space-between;
+color: #2f2f33;
 `;
